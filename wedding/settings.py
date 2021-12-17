@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-v()d&g6*j^9t+1v6yo()uq_f7*!ukhw=*@+tim1s$on-p8kstj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.0.20"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rsvp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
