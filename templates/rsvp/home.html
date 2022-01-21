@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSVP</title>
+    {% include 'rsvp/_head.html' %}
+</head>
+<body>
+    {% include 'rsvp/_header.html' %}
+
+    <div class="tab-content">
+
+        <div class="tab-pane container fade active" id="home">
+            {% include 'rsvp/_wedding.html' %}
+        </div>
+        <div class="tab-pane container fade" id="schedule">
+            {% include 'rsvp/_schedule.html' %}
+        </div>
+        <div class="tab-pane container fade" id="travel">
+            {% include 'rsvp/_travel.html' %}
+        </div>
+        <div class="tab-pane container fade" id="registry">
+            <hr class="horizontal-ln">
+            {% include 'rsvp/_registry.html' with products=products %}
+        </div>
+    </div>
+</body>
+</html>

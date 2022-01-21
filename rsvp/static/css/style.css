@@ -1,9 +1,11 @@
 
 :root {
-    --mauve: #C69ABE;
+    --pink: #C69ABE;
+    --mauve: #B76E79;
     --green: #6B9F93;
-    --gold: #F1D5BF;
-    --blue: #8BA8B7
+    --gold: #c4a784;
+    --blue: #8BA8B7;
+    --text-grey: #737578;
 }
 
 p {
@@ -11,11 +13,142 @@ p {
     margin-bottom: 0 !important;
 }
 
-.main-column {
+body.rsvp {
+    background-color: var(--mauve);
 }
 
-#invite-card {
-    max-width: 700px;
-    height: 700px;
+.rsvp-title {
+    color: white;
+    font-family: "Playfair Display";
 }
+
+.nav-link {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    color: var(--text-grey);
+    font-size: large;
+}
+
+.nav-item {
+
+}
+
+.nav-link:hover {
+    color: var(--mauve);
+}
+
+.nav-link:focus {
+    color: var(--mauve);
+}
+
+
+.btn-rsvp {
+    color: var(--mauve);
+    border-color: var(--mauve);
+    position: fixed;
+    right:30px;
+    top: 30px;
+    border-radius: 0;
+}
+
+.vertical-rule::after {
+    content:'';
+    position:absolute;
+    height: 400px;
+    width: 15px;
+    right: 49px;
+    top: 10px;
+    z-index: 1;
+
+    background-color: var(--mauve);
+}
+
+.btn-mauve {
+    color: var(--mauve);
+    border-color: var(--mauve);
+    border-radius: 0;
+}
+
+.btn-mauve:hover {
+    background-color: var(--mauve);
+    border-color: var(--mauve);
+    color: white;
+}
+
+.btn-back {
+    position: fixed;
+    right: 30px;
+    top: 30px;
+    border-radius: 0;
+}
+
+
+.btn-rsvp:hover {
+    background-color: var(--mauve);
+    border-color: var(--mauve);
+}
+
+#initials {
+    color: var(--mauve)
+}
+
+.ornament {
+    width: 5%;
+    height: auto;
+}
+
+.horizontal-ln {
+    color: var(--mauve);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left:-100px;
+    top:0px;
+    background-color: var(--mauve);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-image {
+    width: 50%;
+    height: auto;
+}
+
+#arrive-timeline::before {
+    content: url("/static/img/groups_white_36dp.svg");
+    position: absolute;
+    left:-100px;
+    top:-5px;
+    padding-left: 12px;
+    padding-top: 10px;
+    z-index: 2;
+}
+
+#wedding-timeline::before {
+    content: url("/static/img/church_white_36dp.svg");
+    position: absolute;
+    left:-100px;
+    top:0px;
+    padding-left: 12px;
+    padding-top: 10px;
+    z-index: 2;
+}
+
+.timeline-title {
+    margin-bottom: 0;
+    color: white;
+}
+
+.timeline-header {
+    background-color: var(--mauve);
+}
+
+
+
+
+
+/* TIMELINE */
 

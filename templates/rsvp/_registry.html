@@ -1,0 +1,19 @@
+<div class="d-flex flex-column">
+    <div class="row">
+        {% for product in products %}
+            <div class="col">
+                <div class="card p-3 my-3">
+                    <img class="mx-auto" src="{{ product.image }}" width=200 height="auto">
+                    <p class="py-1">{{ product.title }}</p>
+                    <div class="card bg-light p-2">
+                        <p class="mx-auto">{{ product.purchased }} of {{ product.wanted }} purchased</p>
+                    </div>
+                    <hr>
+                    <p>£{{ product.price }}</p>
+                    <hr>
+                    <p>{{ product.availability }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

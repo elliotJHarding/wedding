@@ -19,5 +19,7 @@ from rsvp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.rsvp)
+    path('rsvp', views.rsvp),
+    path('dashboard', views.dashboard),
+    path('', views.home)
 ]

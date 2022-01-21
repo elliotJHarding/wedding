@@ -5,11 +5,98 @@
     <title>RSVP</title>
     {% include 'rsvp/_head.html' %}
 </head>
-<body>
-    <div id="invite-card" class="card shadow mx-auto mt-5">
-        <div class="border-2 w-100 h-100">
+<body class="rsvp p-2">
+    <a class="btn btn-outline-light btn-back" href="/">BACK</a>
+    <div class="rsvp-title d-flex justify-content-center">
+        <h1 class="mt-3">RSVP</h1>
+    </div>
+    <div class="container-md card mt-4 p-5">
+        <form id="search">
+            <div class="row">
+                <div class="col-9">
+                    <input id="search-input" class="form-control" name="rsvp_search" placeholder="Search for your name">
+                </div>
+                <div class="col-3">
+                    <button id="search-button" type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#attend">Search</button>
+                </div>
 
-        </div>
+            </div>
+        </form>
+        <form class="mt-4">
+            <div id="attend" class="collapse">
+                <h3 id="guest-name">Name</h3>
+                <script>
+                    $('#search-button').click(function () {
+                        $('#guest-name').text($('#search-input').val());
+
+                    })
+                </script>
+                <div class="d-flex my-2">
+                    <p class="my-auto me-3">Are you able to attend?</p>
+                    <input type="radio" class="btn-check" name="attend" id="attend-yes" autocomplete="off">
+                    <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="attend-yes" style="align-self: flex-start">YES</label>
+
+                    <input type="radio" class="btn-check" name="attend" id="attend-no" autocomplete="off">
+                    <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="attend-no" style="align-self: flex-start">NO</label>
+                    <script>
+                        $('#attend-yes').click(function () {
+                            $('#response').collapse('show')
+                            $('#submit').collapse('show')
+                        })
+                        $('#attend-no').click(function () {
+                            $('#response').collapse('hide')
+                            $('#submit').collapse('show')
+                        })
+                    </script>
+                </div>
+                <div id="response" class="collapse">
+                    <div class="form-floating mb-3 mt-4">
+                        <input type="text" class="form-control" id="email" placeholder="email" name="email">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="d-flex my-2">
+
+                        <p class="my-auto me-3">Do you require a vegetarian option?</p>
+                        <input type="radio" class="btn-check" name="veg" id="veg-yes" autocomplete="off">
+                        <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="veg-yes" style="align-self: flex-start">YES</label>
+
+                        <input type="radio" class="btn-check" name="veg" id="veg-no" autocomplete="off">
+                        <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="veg-no" style="align-self: flex-start">NO</label>
+                    </div>
+                    <div class="form-floating mb-3 mt-4">
+                        <input type="text" class="form-control" id="diet" placeholder="Dietary Requirements" name="diet">
+                        <label for="diet">Dietary Requirements</label>
+                    </div>
+                    <div class="form-floating mb-3 mt-4">
+                        <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
+                        <label for="note">Write us a Note! (Optional)</label>
+                    </div>
+                </div>
+                <div id="submit" class="collapse mt-5">
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-outline-dark btn-mauve">Submit RSVP</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div id="response" class="collapse">
+                <div class="form-floating mb-3 mt-4">
+                    <input type="text" class="form-control" id="email" placeholder="email" name="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-floating mb-3 mt-4">
+                    <input type="text" class="form-control" id="diet" placeholder="Dietary Requirements" name="diet">
+                    <label for="diet">Dietary Requirements</label>
+                </div>
+                <div class="form-floating mb-3 mt-4">
+                    <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
+                    <label for="note">Write us a Note! (Optional)</label>
+                </div>
+            </div>
+
+        </form>
     </div>
 </body>
 </html>
