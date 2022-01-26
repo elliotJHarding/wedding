@@ -5,7 +5,11 @@ from django.db import models
 class Guest(models.Model):
     f_name = models.CharField(max_length=50)
     s_name = models.CharField(max_length=50)
-
+    has_plus1 = models.BooleanField(default=False)
+    responded = models.BooleanField(default=False)
+    attending = models.BooleanField(default=None, null=True)
+    vegetarian = models.BooleanField(default=None, null=True)
+    dietary_reqs = models.CharField(max_length=1000, null=True)
 
 
 class Response(models.Model):

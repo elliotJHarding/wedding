@@ -1,0 +1,62 @@
+<div class="d-flex p-2">
+    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#upload-guests-modal">Upload</button>
+    <button class="btn btn-secondary mx-2">Download</button>
+    <div class="modal" id="upload-guests-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Guest-list</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="guest-list-form" action="/upload/guests" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input name="guest-list" type="file" class="form-control-file" id="guest-upload-input">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                        <button id="guest-list-submit" class="btn btn-primary">Upload</button>
+                        <script>
+                            $('#guest-list-submit').click(function () {
+                                $('#guest-list-form').submit();
+                            });
+                        </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Responded</th>
+            <th>Attending</th>
+            <th>Vegetarian</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for guest in guests %}
+            <tr>
+                <td>{{ guest.f_name }}</td>
+                <td>{{ guest.s_name }}</td>
+                <td>{{ guest.responded }}</td>
+
+                {% if guest.attending is None %}
+                {% else %}
+                    <td>{{ guest.attending }}</td>
+                {% endif %}
+
+                <td>{{ guest.vegetarian }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>

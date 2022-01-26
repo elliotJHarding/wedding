@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('rsvp', views.rsvp),
     path('dashboard', views.dashboard),
+    path('upload/guests', views.upload_guests),
     path('', views.home)
 ]

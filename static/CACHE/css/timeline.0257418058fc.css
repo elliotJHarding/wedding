@@ -1,0 +1,31 @@
+/* line 1, rsvp/static/css/timeline.css */
+.uk-timeline .uk-timeline-item .uk-card {
+  max-height: 300px; }
+
+/* line 5, rsvp/static/css/timeline.css */
+.uk-timeline .uk-timeline-item {
+  display: flex;
+  position: relative; }
+
+/* line 10, rsvp/static/css/timeline.css */
+.uk-timeline .uk-timeline-item::before {
+  background: #dadee4;
+  content: "";
+  height: 100%;
+  left: 19px;
+  position: absolute;
+  top: 20px;
+  width: 2px;
+  z-index: -1; }
+
+/* line 21, rsvp/static/css/timeline.css */
+.uk-timeline .uk-timeline-item .uk-timeline-icon .uk-badge {
+  margin-top: 20px;
+  width: 40px;
+  height: 40px; }
+
+/* line 27, rsvp/static/css/timeline.css */
+.uk-timeline .uk-timeline-item .uk-timeline-content {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0 0 0 1rem; }
