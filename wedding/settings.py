@@ -163,7 +163,7 @@ LOGGING = {
 }
 
 
-django_heroku.settings(locals(), debug=False)
+django_heroku.settings(locals(), logging=False)
 
 
 
