@@ -30,7 +30,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["192.168.0.20", "192.168.1.84", "wedding.eba-uep2zn2p.eu-west-2.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["192.168.0.20", "192.168.1.84", "https://fierce-springs-01159.herokuapp.com/"]
 
 
 # Application definition
