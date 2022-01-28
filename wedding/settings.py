@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import socket
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ["192.168.0.20", "wedding.eba-uep2zn2p.eu-west-2.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["192.168.0.20", "192.168.1.84", "wedding.eba-uep2zn2p.eu-west-2.elasticbeanstalk.com"]
 
 
 # Application definition
@@ -139,6 +140,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 ]
+
+django_heroku.settings(locals())
 
 
 
