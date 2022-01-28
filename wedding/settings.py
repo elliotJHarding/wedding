@@ -141,6 +141,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -149,13 +150,20 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
     },
 }
 
-django_heroku.settings(locals())
+
+django_heroku.settings(locals(), debugging=False)
 
 
 
