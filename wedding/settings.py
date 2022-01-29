@@ -152,7 +152,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/debug.log',
+            'filename': '/app/debug.log',
         },
     },
     'loggers': {
