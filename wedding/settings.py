@@ -30,7 +30,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["192.168.0.20", "192.168.1.84", "fierce-springs-01159.herokuapp.com"]
+ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.20", "192.168.1.84", "fierce-springs-01159.herokuapp.com"]
 
 
 # Application definition
