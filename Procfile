@@ -1,2 +1,2 @@
-web: gunicorn --worker-class=gevent wedding.wsgi
+web: gunicorn wedding.wsgi
 
