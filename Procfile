@@ -1,2 +1,2 @@
-web: gunicorn wedding.wsgi
+web: gunicorn --log-level debug wedding.wsgi
 
