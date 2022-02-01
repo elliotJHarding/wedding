@@ -10,8 +10,8 @@ def rsvp(request):
 
 
 def home(request):
-    context = {'products': get_products()}
-    return render(request, 'rsvp/home/home.html', context=context)
+    # context = {'products': get_products()}
+    return render(request, 'rsvp/home/home.html')
 
 
 def upload_guests(request):
