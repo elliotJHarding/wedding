@@ -44,10 +44,10 @@ body.rsvp {
 .btn-rsvp {
     color: var(--mauve);
     border-color: var(--mauve);
-    position: fixed;
     right:30px;
     top: 30px;
     border-radius: 0;
+    position: fixed;
 }
 
 .vertical-rule::after {
@@ -137,12 +137,24 @@ body.rsvp {
     z-index: 2;
 }
 
-.timeline-title {
+#tea-cake-timeline::before {
+    content: url("/static/img/local_cafe_white_36dp.svg");
+    position: absolute;
+    left:-100px;
+    top:0px;
+    padding-left: 13px;
+    padding-top: 12px;
+    z-index: 2;
+}
+
+
+
+.light-title {
     margin-bottom: 0;
     color: white;
 }
 
-.timeline-header {
+.mauve-header {
     background-color: var(--mauve);
 }
 

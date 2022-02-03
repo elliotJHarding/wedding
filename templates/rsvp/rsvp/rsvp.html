@@ -15,6 +15,18 @@
             <div class="row">
                 <div class="col-9">
                     <input id="search-input" class="form-control" name="rsvp_search" placeholder="Search for your name" autocomplete="off">
+                    <script>
+                        var guests = {{ guests | safe }}
+                        $('#search-input').typeahead({
+                            hint: true,
+                            highlight: true,
+                            minLength: 1
+                        },
+                            {
+                                name:'guests',
+                                source: guests
+                            })
+                    </script>
                 </div>
                 <div class="col-3">
                     <button id="search-button" type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#attend">Search</button>

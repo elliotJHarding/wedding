@@ -9,7 +9,6 @@
     {% include 'rsvp/_header.html' %}
 
     <div class="tab-content">
-
         <div class="tab-pane container fade active" id="home">
             {% include 'rsvp/home/_wedding.html' %}
         </div>
@@ -20,7 +19,6 @@
             {% include 'rsvp/home/_travel.html' %}
         </div>
         <div class="tab-pane container fade" id="registry">
-            <hr class="horizontal-ln">
             {% include 'rsvp/home/_registry.html' with products=products %}
         </div>
     </div>

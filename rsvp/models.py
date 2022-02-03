@@ -5,6 +5,7 @@ from django.db import models
 class Guest(models.Model):
     f_name = models.CharField(max_length=50)
     s_name = models.CharField(max_length=50)
+    full_name = models.CharField(max_length=100, default="")
     has_plus1 = models.BooleanField(default=False)
     responded = models.BooleanField(default=False)
     attending = models.BooleanField(default=None, null=True)

@@ -9,5 +9,6 @@ def import_guest_csv(file):
         Guest.objects.get_or_create(
             f_name=row['f_name'],
             s_name=row['s_name'],
+            full_name=f"{row['f_name']} {row['s_name']}",
             has_plus1=row['p1'],
         )

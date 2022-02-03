@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover" style="overflow: scroll">
     <thead>
         <tr>
             <th>Name</th>
@@ -39,6 +39,7 @@
             <th>Responded</th>
             <th>Attending</th>
             <th>Vegetarian</th>
+            <th>Diet Reqs</th>
         </tr>
     </thead>
     <tbody>
@@ -47,13 +48,9 @@
                 <td>{{ guest.f_name }}</td>
                 <td>{{ guest.s_name }}</td>
                 <td>{{ guest.responded }}</td>
-
-                {% if guest.attending is None %}
-                {% else %}
-                    <td>{{ guest.attending }}</td>
-                {% endif %}
-
+                <td>{{ guest.attending }}</td>
                 <td>{{ guest.vegetarian }}</td>
+                <td>{{ guest.dietary_reqs }}</td>
             </tr>
         {% endfor %}
     </tbody>

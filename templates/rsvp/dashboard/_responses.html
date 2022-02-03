@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped table-hover" style="overflow: scroll">
+    <thead>
+        <tr>
+            <th>Guest</th>
+            <th>Email</th>
+            <th>Attending</th>
+            <th>Vegetarian</th>
+            <th>Diet Reqs</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for response in responses %}
+            <tr>
+                <td>{{ response.guest.full_name }}</td>
+                <td>{{ response.email }}</td>
+                <td>{{ response.can_attend }}</td>
+                <td>{{ response.vegetarian }}</td>
+                <td>{{ response.dietary_reqs }}</td>
+                <td>{{ response.note }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
