@@ -9,7 +9,6 @@ import json
 def rsvp(request):
     guests = [f"{guest.f_name} {guest.s_name}" for guest in Guest.objects.all()]
     guests_json = json.dumps(guests)
-    print(guests_json)
     context = {'guests': guests_json}
     return render(request, 'rsvp/rsvp/rsvp.html', context=context)
 

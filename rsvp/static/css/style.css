@@ -44,10 +44,12 @@ body.rsvp {
 .btn-rsvp {
     color: var(--mauve);
     border-color: var(--mauve);
+    background-color: white;
     right:30px;
-    top: 30px;
+    top: 20px;
     border-radius: 0;
     position: fixed;
+    z-index: 2;
 }
 
 .vertical-rule::after {
@@ -98,6 +100,10 @@ body.rsvp {
 
 .horizontal-ln {
     color: var(--mauve);
+}
+
+.timeline-item {
+    max-width: 700px;
 }
 
 .timeline-item::before {

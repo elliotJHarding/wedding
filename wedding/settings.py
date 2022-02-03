@@ -28,8 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ['DEBUG']))
 
+
+SECURE_SSL_REDIRECT = bool(int(os.environ['SSL_REDIRECT']))
 
 ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.20", "192.168.1.84", "fierce-springs-01159.herokuapp.com", "*"]
 
