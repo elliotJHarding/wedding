@@ -4,6 +4,7 @@ from rsvp.guest_io import import_guest_csv
 from django.http import *
 from rsvp.models import Guest, Response
 import json
+from django.http import JsonResponse
 
 
 def rsvp(request):
@@ -35,12 +36,11 @@ def dashboard(request):
     return render(request, 'rsvp/dashboard/dashboard.html', context=context)
 
 
-def search_guests(request):
-    q = request.GET.get('q')
-    data={}
+def guests_json(request):
+    guests = Guest.objects.all()
+    guest_names = [guest.full_name for guest in guests]
 
-    if q:
-        guests = Guest.objects.filter(full_name__icontains=q)
+    return JsonResponse(guest_names)
 
 
 

@@ -23,5 +23,4 @@ urlpatterns = [
     path('dashboard', views.dashboard),
     path('upload/guests', views.upload_guests),
     path('', views.home),
-    path('guestsearch/', views.search_guests)
 ]

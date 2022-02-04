@@ -5,44 +5,88 @@
     <title>RSVP</title>
     {% include 'rsvp/_head.html' %}
 </head>
-<body class="rsvp p-2">
+<body class="rsvp p-3">
     <a class="btn btn-outline-light btn-back" href="/">BACK</a>
     <div class="rsvp-title d-flex justify-content-center">
         <h1 class="mt-3">RSVP</h1>
     </div>
-    <div class="container-md card mt-4 p-5">
+    <div class="container-md card mt-4 p-4" style="max-width: 800px">
         <form id="search">
-            <div class="row">
-                <div class="col-9">
-                    <input id="search-input" class="form-control" name="rsvp_search" placeholder="Search for your name" autocomplete="off">
-                    <script>
-                        var guests = {{ guests | safe }}
-                        $('#search-input').typeahead({
+            <div class="d-flex justify-content-center">
+
+                <input  id="search-input" class="typeahead form-control" name="rsvp_search" placeholder="Search for your name" autocomplete="off" style="">
+                <button id="search-button" type="button" class="btn btn-info ms-2">Search</button>
+                <script>
+
+                    var guests = {{ guests | safe }}
+
+                    function valid_guest() {
+                        var search = $('#search-input').val();
+                        if (guests.includes(search)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    function submit_search() {
+                        if (valid_guest()) {
+                            $('#guest-name').text($('#search-input').val())
+                            $('#search-input').addClass('is-valid')
+                            $('#search-input').removeClass('is-invalid')
+                            $('#attend').collapse('show')
+                            $('#attend-yes').focus()
+                            $('#guest-name-input').val($('#search-input').val())
+                        } else {
+                            $('#search-input').addClass('is-invalid')
+                            $('#search-input').removeClass('is-valid')
+                            $('#attend').collapse('hide')
+                        }
+                    }
+
+                    $(document).ready(function() {
+                        $(window).keydown(function(event){
+                            if(event.keyCode == 13) {
+                                event.preventDefault();
+                                if ($('#search-input').is(':focus')) {
+                                    submit_search()
+                                }
+                            }
+                        });
+                    });
+
+                    $('#search-button').click(function () {
+                        submit_search()
+                    })
+
+                    var guests_bloodhound = new Bloodhound({
+                        datumTokenizer: Bloodhound.tokenizers.whitespace,
+                        queryTokenizer: Bloodhound.tokenizers.whitespace,
+                        local: guests
+                    });
+
+                    $('#search-input').typeahead({
                             hint: true,
                             highlight: true,
-                            minLength: 1
+                            minLength: 3,
+
                         },
-                            {
-                                name:'guests',
-                                source: guests
-                            })
-                    </script>
-                </div>
-                <div class="col-3">
-                    <button id="search-button" type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#attend">Search</button>
-                </div>
+                        {
+                            name: 'guests',
+                            source: guests_bloodhound,
+                        })
+
+                </script>
 
             </div>
         </form>
         <form class="mt-4">
             <div id="attend" class="collapse">
                 <h3 id="guest-name">Name</h3>
-                <script>
-                    $('#search-button').click(function () {
-                        $('#guest-name').text($('#search-input').val());
+                <input id="guest-name-input" type="hidden" name="guest-name">
+                <input type="hidden" name="guest-id">
+                <hr class="horizontal-ln">
 
-                    })
-                </script>
                 <div class="d-flex my-2">
                     <p class="my-auto me-3">Are you able to attend?</p>
                     <input type="radio" class="btn-check" name="attend" id="attend-yes" autocomplete="off">
@@ -79,34 +123,77 @@
                         <input type="text" class="form-control" id="diet" placeholder="Dietary Requirements" name="diet">
                         <label for="diet">Dietary Requirements</label>
                     </div>
+                </div>
+                <div id="submit" class="collapse mt-2">
                     <div class="form-floating mb-3 mt-4">
                         <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
                         <label for="note">Write us a Note! (Optional)</label>
                     </div>
-                </div>
-                <div id="submit" class="collapse mt-5">
+                    <hr class="horizontal-ln">
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-outline-dark btn-mauve">Submit RSVP</button>
+                        <button id="modal-open-button" type="button" class="btn btn-outline-dark btn-mauve" data-bs-toggle="modal" data-bs-target="#submit-modal">Submit RSVP</button>
+                        <script>
+                            $('#modal-open-button').click(function () {
+                                $('#modal-name').text($('#guest-name-input').val())
+                                $('#modal-attending').text()
+                                $('#modal-email').text($('#email').val())
+                                $('#modal-veg').text($('').val())
+                                $('#modal-diet').text($('#diet').val())
+                                $('#modal-note').text($('#note').val())
+
+                            })
+                        </script>
+                    </div>
+                </div>
+
+                <div class="modal" id="submit-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 style="margin-bottom: 0px">RSVP</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table id="response-table" class="table table-striped m-3">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td id="modal-name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attending</td>
+                                        <td id="modal-attending"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td id="modal-email"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vegetarian option</td>
+                                        <td id="modal-veg"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dietary Requirements</td>
+                                        <td id="modal-diet"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Note</td>
+                                        <td id="modal-note"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-mauve">RSVP</button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
 
             </div>
 
-            <div id="response" class="collapse">
-                <div class="form-floating mb-3 mt-4">
-                    <input type="text" class="form-control" id="email" placeholder="email" name="email">
-                    <label for="email">Email</label>
-                </div>
-                <div class="form-floating mb-3 mt-4">
-                    <input type="text" class="form-control" id="diet" placeholder="Dietary Requirements" name="diet">
-                    <label for="diet">Dietary Requirements</label>
-                </div>
-                <div class="form-floating mb-3 mt-4">
-                    <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
-                    <label for="note">Write us a Note! (Optional)</label>
-                </div>
-            </div>
+
 
         </form>
     </div>

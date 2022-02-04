@@ -40,13 +40,12 @@ ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.20", "192.168.1.84", "fierce-springs-0115
 
 INSTALLED_APPS = [
     'rsvp',
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django_typeahead',
-    'django.contrib.staticfiles',
     'compressor'
 ]
 

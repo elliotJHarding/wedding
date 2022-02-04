@@ -19,7 +19,6 @@ django-appconf==1.0.5
 django-compressor==3.1
 django-heroku==0.3.1
 django-libsass==0.9
-django-typeahead==1.0.1
 docker==4.4.4
 docker-compose==1.25.5
 dockerpty==0.4.1
