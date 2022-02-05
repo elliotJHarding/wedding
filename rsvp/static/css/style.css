@@ -6,6 +6,8 @@
     --gold: #c4a784;
     --blue: #8BA8B7;
     --text-grey: #737578;
+
+    --schedule-align-top: -7px;
 }
 
 p {
@@ -59,7 +61,7 @@ body.rsvp {
 .vertical-rule::after {
     content:'';
     position:absolute;
-    height: 400px;
+    height: 90%;
     width: 15px;
     right: 49px;
     top: 10px;
@@ -94,11 +96,14 @@ body.rsvp {
 }
 
 #initials {
-    color: var(--mauve)
+    color: var(--mauve);
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .ornament {
     width: 5%;
+    min-width: 45px;
     height: auto;
 }
 
@@ -116,7 +121,6 @@ body.rsvp {
     width: 60px;
     height: 60px;
     left:-100px;
-    top:0px;
     background-color: var(--mauve);
     border-radius: 50%;
     z-index: 1;
@@ -130,8 +134,8 @@ body.rsvp {
 #arrive-timeline::before {
     content: url("/static/img/groups_white_36dp.svg");
     position: absolute;
-    left:-100px;
-    top:-5px;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
     padding-left: 12px;
     padding-top: 10px;
     z-index: 2;
@@ -140,8 +144,8 @@ body.rsvp {
 #wedding-timeline::before {
     content: url("/static/img/church_white_36dp.svg");
     position: absolute;
-    left:-100px;
-    top:0px;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
     padding-left: 12px;
     padding-top: 10px;
     z-index: 2;
@@ -150,14 +154,52 @@ body.rsvp {
 #tea-cake-timeline::before {
     content: url("/static/img/local_cafe_white_36dp.svg");
     position: absolute;
-    left:-100px;
-    top:0px;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
     padding-left: 13px;
     padding-top: 12px;
     z-index: 2;
 }
 
+#reception-timeline::before {
+    content: url("/static/img/celebration_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 13px;
+    padding-top: 12px;
+    z-index: 2;
+}
 
+#food-timeline::before {
+    content: url("/static/img/restaurant_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 11px;
+    padding-top: 12px;
+    z-index: 2;
+}
+
+#cake-timeline::before {
+    content: url("/static/img/cake_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 12px;
+    padding-top: 11px;
+    z-index: 2;
+}
+
+#first-dance-timeline::before {
+    content: url("/static/img/music_note_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 13px;
+    padding-top: 12px;
+    z-index: 2;
+}
 
 .light-title {
     margin-bottom: 0;
@@ -167,9 +209,6 @@ body.rsvp {
 .mauve-header {
     background-color: var(--mauve);
 }
-
-
-
 
 
 /* TIMELINE */

@@ -22,5 +22,7 @@ urlpatterns = [
     path('rsvp', views.rsvp),
     path('dashboard', views.dashboard),
     path('upload/guests', views.upload_guests),
+    path('submit/response', views.submit_rsvp),
+    path('submit/hasplusone', views.has_plus_one),
     path('', views.home),
 ]

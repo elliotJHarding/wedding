@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>RSVP</title>
     {% include 'rsvp/_head.html' %}
+    <script>
+        var cookies = {};
+        document.cookie.split(';').forEach(e => cookies[e.split('=')[0]] = e.split('=')[1]);
+        var has_plus_one = false;
+    </script>
 </head>
 <body class="rsvp p-3">
     <a class="btn btn-outline-light btn-back" href="/">BACK</a>
@@ -30,6 +35,7 @@
                     }
 
                     function submit_search() {
+
                         if (valid_guest()) {
                             $('#guest-name').text($('#search-input').val())
                             $('#search-input').addClass('is-valid')
@@ -37,6 +43,9 @@
                             $('#attend').collapse('show')
                             $('#attend-yes').focus()
                             $('#guest-name-input').val($('#search-input').val())
+
+
+
                         } else {
                             $('#search-input').addClass('is-invalid')
                             $('#search-input').removeClass('is-valid')
@@ -80,7 +89,8 @@
 
             </div>
         </form>
-        <form class="mt-4">
+        <form id="rsvp-form" class="mt-4">
+            {% csrf_token %}
             <div id="attend" class="collapse">
                 <h3 id="guest-name">Name</h3>
                 <input id="guest-name-input" type="hidden" name="guest-name">
@@ -89,19 +99,35 @@
 
                 <div class="d-flex my-2">
                     <p class="my-auto me-3">Are you able to attend?</p>
-                    <input type="radio" class="btn-check" name="attend" id="attend-yes" autocomplete="off">
+                    <input type="radio" class="btn-check" name="attend-yes" id="attend-yes" autocomplete="off">
                     <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="attend-yes" style="align-self: flex-start">YES</label>
 
-                    <input type="radio" class="btn-check" name="attend" id="attend-no" autocomplete="off">
+                    <input type="radio" class="btn-check" name="attend-no" id="attend-no" autocomplete="off">
                     <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="attend-no" style="align-self: flex-start">NO</label>
                     <script>
                         $('#attend-yes').click(function () {
                             $('#response').collapse('show')
+                            $.ajax({
+                                type: 'POST',
+                                url: 'submit/hasplusone',
+                                data: {
+                                    'csrfmiddlewaretoken': cookies['csrftoken'],
+                                    'guest-name': $('#search-input').val()
+                                },
+                                success: function (data) {
+                                    if (data['has_plus1']) {
+                                        $('#plus-one').show()
+                                    }
+                                }
+
+                            })
                             $('#submit').collapse('show')
+
                         })
                         $('#attend-no').click(function () {
                             $('#response').collapse('hide')
                             $('#submit').collapse('show')
+                            $('#plus-one').hide()
                         })
                     </script>
                 </div>
@@ -113,10 +139,10 @@
                     <div class="d-flex my-2">
 
                         <p class="my-auto me-3">Do you require a vegetarian option?</p>
-                        <input type="radio" class="btn-check" name="veg" id="veg-yes" autocomplete="off">
+                        <input type="radio" class="btn-check" name="veg-yes" id="veg-yes" autocomplete="off">
                         <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="veg-yes" style="align-self: flex-start">YES</label>
 
-                        <input type="radio" class="btn-check" name="veg" id="veg-no" autocomplete="off">
+                        <input type="radio" class="btn-check" name="veg-no" id="veg-no" autocomplete="off">
                         <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="veg-no" style="align-self: flex-start">NO</label>
                     </div>
                     <div class="form-floating mb-3 mt-4">
@@ -124,12 +150,24 @@
                         <label for="diet">Dietary Requirements</label>
                     </div>
                 </div>
+
+
+
                 <div id="submit" class="collapse mt-2">
                     <div class="form-floating mb-3 mt-4">
                         <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
                         <label for="note">Write us a Note! (Optional)</label>
                     </div>
                     <hr class="horizontal-ln">
+
+                    <div id="plus-one" class="mt-2">
+                        <div class="form-floating mb-3 mt-4">
+                            <input type="text" class="form-control" id="plus-one-name" placeholder="Name of plus-one" name="plus-one-name">
+                            <label for="plus-one-name">Name of plus one</label>
+                        </div>
+                        <hr class="horizontal-ln">
+                    </div>
+
                     <div class="d-flex justify-content-center">
                         <button id="modal-open-button" type="button" class="btn btn-outline-dark btn-mauve" data-bs-toggle="modal" data-bs-target="#submit-modal">Submit RSVP</button>
                         <script>
@@ -183,7 +221,22 @@
                                 </table>
                             </div>
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-mauve">RSVP</button>
+                                <button id="submit-rsvp-button" type="submit" class="btn btn-mauve">RSVP</button>
+                                <script>
+                                    $('#rsvp-form').submit(function (e) {
+                                        e.preventDefault();
+                                        var form = $(this)
+
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: 'submit/response',
+                                            data: form.serialize(),
+                                            success: function (data) {
+                                                console.log(data)
+                                            }
+                                        })
+                                    })
+                                </script>
                             </div>
 
                         </div>
