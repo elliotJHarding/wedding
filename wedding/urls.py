@@ -24,5 +24,6 @@ urlpatterns = [
     path('upload/guests', views.upload_guests),
     path('submit/response', views.submit_rsvp),
     path('submit/hasplusone', views.has_plus_one),
+    path('rsvp/<guest_id>', views.thanks),
     path('', views.home),
 ]

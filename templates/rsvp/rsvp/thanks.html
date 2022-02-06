@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSVP</title>
+    {% include 'rsvp/_head.html' %}
+    <script>
+        var cookies = {};
+        document.cookie.split(';').forEach(e => cookies[e.split('=')[0]] = e.split('=')[1]);
+        var has_plus_one = false;
+    </script>
+</head>
+<body class="rsvp p-3">
+    <a class="btn btn-outline-light btn-back" href="/">BACK</a>
+    <div class="rsvp-title d-flex justify-content-center">
+        <h1 class="mt-3">RSVP</h1>
+    </div>
+    <div class="container-md card mt-4 p-4" style="max-width: 800px">
+
+        <h3 class="mx-auto">Thanks for responding</h3>
+        <p class="mx-auto mt-4">We can't wait to see you!</p>
+        {% if guest.has_plus1 %}
+            <p class="mx-auto mt-4">Please ask your plus one to RSVP, or RSVP for them by clicking the button below</p>
+        {% endif %}
+
+        <div class="d-flex justify-content-center mt-5">
+            <a class="btn btn-mauve mx-1" href="/rsvp">RSVP FOR SOMEONE ELSE</a>
+            <a class="btn btn-mauve mx-1" href="/">HOME</a>
+        </div>
+    </div>
+</body>
+</html>

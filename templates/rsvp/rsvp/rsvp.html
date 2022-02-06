@@ -34,8 +34,27 @@
                         }
                     }
 
-                    function submit_search() {
+                    function reset_form(reset_attending = true) {
+                        if (reset_attending) {
+                            $('#attend-yes').prop('checked', false);
+                            $('#attend-no').prop('checked', false);
+                            $('#submit').collapse('hide')
+                        } else {
+                        }
+                        $('#veg-yes').prop('checked', false);
+                        $('#veg-no').prop('checked', false);
+                        $('#email').val('');
+                        $('#diet').val('');
+                        $('#plus-one-name').val('')
+                        $('#note').val('');
+                        $('#response').collapse('hide')
 
+                        $('#plus-one').hide()
+
+                    }
+
+                    function submit_search() {
+                        reset_form()
                         if (valid_guest()) {
                             $('#guest-name').text($('#search-input').val())
                             $('#search-input').addClass('is-valid')
@@ -99,10 +118,10 @@
 
                 <div class="d-flex my-2">
                     <p class="my-auto me-3">Are you able to attend?</p>
-                    <input type="radio" class="btn-check" name="attend-yes" id="attend-yes" autocomplete="off">
+                    <input type="radio" class="btn-check" name="attend" value="yes" id="attend-yes" autocomplete="off">
                     <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="attend-yes" style="align-self: flex-start">YES</label>
 
-                    <input type="radio" class="btn-check" name="attend-no" id="attend-no" autocomplete="off">
+                    <input type="radio" class="btn-check" name="attend" value="no" id="attend-no" autocomplete="off">
                     <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="attend-no" style="align-self: flex-start">NO</label>
                     <script>
                         $('#attend-yes').click(function () {
@@ -117,17 +136,16 @@
                                 success: function (data) {
                                     if (data['has_plus1']) {
                                         $('#plus-one').show()
+                                        has_plus_one = true
                                     }
                                 }
-
                             })
                             $('#submit').collapse('show')
 
                         })
                         $('#attend-no').click(function () {
-                            $('#response').collapse('hide')
-                            $('#submit').collapse('show')
-                            $('#plus-one').hide()
+                            reset_form(reset_attending=false)
+
                         })
                     </script>
                 </div>
@@ -139,10 +157,10 @@
                     <div class="d-flex my-2">
 
                         <p class="my-auto me-3">Do you require a vegetarian option?</p>
-                        <input type="radio" class="btn-check" name="veg-yes" id="veg-yes" autocomplete="off">
+                        <input type="radio" class="btn-check" name="veg" value="yes" id="veg-yes" autocomplete="off">
                         <label id="attend-yes" class="btn btn-outline-success mx-3 my-auto" for="veg-yes" style="align-self: flex-start">YES</label>
 
-                        <input type="radio" class="btn-check" name="veg-no" id="veg-no" autocomplete="off">
+                        <input type="radio" class="btn-check" name="veg" value="no" id="veg-no" autocomplete="off">
                         <label id="attend-no" class="btn btn-outline-danger mx-3 my-auto" for="veg-no" style="align-self: flex-start">NO</label>
                     </div>
                     <div class="form-floating mb-3 mt-4">
@@ -153,7 +171,7 @@
 
 
 
-                <div id="submit" class="collapse mt-2">
+                <div id="submit" class="collapse">
                     <div class="form-floating mb-3 mt-4">
                         <input type="text" class="form-control" id="note" placeholder="Write us a Note!" name="note">
                         <label for="note">Write us a Note! (Optional)</label>
@@ -163,21 +181,59 @@
                     <div id="plus-one" class="mt-2" style="display: none;">
                         <div class="form-floating mb-3 mt-4">
                             <input type="text" class="form-control" id="plus-one-name" placeholder="Name of plus-one" name="plus-one-name">
-                            <label for="plus-one-name">Name of plus one</label>
+                            <label for="plus-one-name">Full name of plus one</label>
                         </div>
                         <hr class="horizontal-ln">
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <button id="modal-open-button" type="button" class="btn btn-outline-dark btn-mauve" data-bs-toggle="modal" data-bs-target="#submit-modal">Submit RSVP</button>
+                        <button id="modal-open-button" type="button" class="btn btn-outline-dark btn-mauve">Submit RSVP</button>
                         <script>
+                            const re = "[A-Za-z0-9]+@[A-Za-z0-9.]+"
+                            function validate() {
+                                let valid = true;
+                                if($('#email').val() == "" || ! $('#email').val().match(re)) {
+                                    $('#email').addClass('is-invalid')
+                                    valid=false;
+                                } else {
+                                    $('#email').removeClass('is-invalid')
+                                }
+
+                                if($('#plus-one-name').val() == "" && has_plus_one) {
+                                    $('#plus-one-name').addClass('is-invalid')
+                                    valid=false;
+                                } else {
+                                    $('#plus-one-name').removeClass('is-invalid')
+                                }
+
+                                return valid;
+                            }
                             $('#modal-open-button').click(function () {
-                                $('#modal-name').text($('#guest-name-input').val())
-                                $('#modal-attending').text()
-                                $('#modal-email').text($('#email').val())
-                                $('#modal-veg').text($('').val())
-                                $('#modal-diet').text($('#diet').val())
-                                $('#modal-note').text($('#note').val())
+
+                                if (validate()) {
+                                    $('#modal-name').text($('#guest-name-input').val())
+                                    $('#modal-attending').text()
+                                    $('#modal-email').text($('#email').val())
+                                    $('#modal-veg').text($('').val())
+                                    $('#modal-diet').text($('#diet').val())
+                                    $('#modal-note').text($('#note').val())
+
+
+                                    if ($('#attend-yes').prop('checked')) {
+                                        $('#modal-attending').text('yes')
+                                    } else {
+                                        $('#modal-attending').text('no')
+                                    }
+
+                                    if ($('#veg-yes').prop('checked')) {
+                                        $('#modal-veg').text('yes')
+                                    } else {
+                                        $('#modal-veg').text('no')
+                                    }
+
+                                    $('#submit-modal').modal('show')
+                                }
+
 
                             })
                         </script>
@@ -185,40 +241,42 @@
                 </div>
 
                 <div class="modal" id="submit-modal">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h4 style="margin-bottom: 0px">RSVP</h4>
+                                <h4 style="margin-bottom: 0px">Confirm Details</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <table id="response-table" class="table table-striped m-3">
-                                    <tr>
-                                        <td>Name</td>
-                                        <td id="modal-name"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Attending</td>
-                                        <td id="modal-attending"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td id="modal-email"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vegetarian option</td>
-                                        <td id="modal-veg"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dietary Requirements</td>
-                                        <td id="modal-diet"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Note</td>
-                                        <td id="modal-note"></td>
-                                    </tr>
-                                </table>
+                                <div>
+                                    <table id="response-table" class="table table-striped table-bordered table-responsive">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td id="modal-name"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Attending</td>
+                                            <td id="modal-attending"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td id="modal-email"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vegetarian option</td>
+                                            <td id="modal-veg"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dietary Requirements</td>
+                                            <td id="modal-diet"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Note</td>
+                                            <td id="modal-note"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                             <div class="modal-footer justify-content-center">
                                 <button id="submit-rsvp-button" type="submit" class="btn btn-mauve">RSVP</button>
@@ -232,7 +290,7 @@
                                             url: 'submit/response',
                                             data: form.serialize(),
                                             success: function (data) {
-                                                console.log(data)
+                                                window.location.replace("/rsvp/"+ data['id'])
                                             }
                                         })
                                     })

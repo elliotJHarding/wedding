@@ -28,6 +28,12 @@ def upload_guests(request):
     return HttpResponseRedirect(redirect_to='/dashboard')
 
 
+def thanks(request, guest_id):
+    context = {'guest': Guest.objects.filter(id=guest_id)}
+
+    return render(request, 'rsvp/rsvp/thanks.html', context)
+
+
 def has_plus_one(request):
     if request.method == 'POST':
         guest_name = request.POST.get('guest-name')
@@ -46,21 +52,18 @@ def submit_rsvp(request):
 
         response.guest = guest
 
+        attend = data.get('attend', None)
+        veg = data.get('veg', None)
 
-        attend_yes = data.get('attend-yes', None)
-        attend_no = data.get('attend-no', None)
-        veg_yes = data.get('veg-yes', None)
-        veg_no = data.get('veg-no', None)
-
-        if attend_yes == 'on' and attend_no is None:
+        if attend == 'yes':
             response.can_attend = True
-        elif attend_yes is None and attend_no == 'on':
+        elif attend == 'no':
             response.can_attend = False
 
         if response.can_attend:
-            if veg_yes == 'on' and veg_no is None:
+            if veg == "yes":
                 response.vegetarian = True
-            elif veg_yes is None and veg_no == 'on':
+            elif veg == 'no':
                 response.vegetarian = False
 
             response.email = data.get('email')
@@ -93,10 +96,7 @@ def submit_rsvp(request):
                     )
                     guest.added_plus1 = True
 
-
-
-
-    return HttpResponse()
+    return JsonResponse({'id': guest.id})
 
 
 def dashboard(request):
