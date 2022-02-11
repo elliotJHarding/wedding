@@ -39,8 +39,8 @@
                             $('#attend-yes').prop('checked', false);
                             $('#attend-no').prop('checked', false);
                             $('#submit').collapse('hide')
-                        } else {
                         }
+
                         $('#veg-yes').prop('checked', false);
                         $('#veg-no').prop('checked', false);
                         $('#email').val('');
@@ -50,6 +50,7 @@
                         $('#response').collapse('hide')
 
                         $('#plus-one').hide()
+
 
                     }
 
@@ -142,11 +143,13 @@
                             })
                             $('#submit').collapse('show')
 
-                        })
+                        });
                         $('#attend-no').click(function () {
-                            reset_form(reset_attending=false)
+                            console.log('test')
+                            reset_form(reset_attending=false);
+                            $('#submit').collapse('show');
 
-                        })
+                        });
                     </script>
                 </div>
                 <div id="response" class="collapse">
@@ -192,7 +195,8 @@
                             const re = "[A-Za-z0-9]+@[A-Za-z0-9.]+"
                             function validate() {
                                 let valid = true;
-                                if($('#email').val() == "" || ! $('#email').val().match(re)) {
+                                if ($('#attending'))
+                                if(($('#email').val() == "" || ! $('#email').val().match(re)) && $('input[name="attend"]:checked').val() == "yes") {
                                     $('#email').addClass('is-invalid')
                                     valid=false;
                                 } else {
@@ -223,6 +227,9 @@
                                         $('#modal-attending').text('yes')
                                     } else {
                                         $('#modal-attending').text('no')
+                                        $('#email-row').hide()
+                                        $('#veg-row').hide()
+                                        $('#diet-row').hide()
                                     }
 
                                     if ($('#veg-yes').prop('checked')) {
@@ -259,15 +266,15 @@
                                             <td>Attending</td>
                                             <td id="modal-attending"></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="email-row">
                                             <td>Email</td>
                                             <td id="modal-email"></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="veg-row">
                                             <td>Vegetarian option</td>
                                             <td id="modal-veg"></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="diet-row">
                                             <td>Dietary Requirements</td>
                                             <td id="modal-diet"></td>
                                         </tr>

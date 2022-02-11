@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from rsvp.registry import get_products
 from rsvp.guest_io import import_guest_csv
 from django.http import *
 from rsvp.models import Guest, Response
 import json
 from django.http import JsonResponse
+from django.core.mail import send_mail
 
 
 def rsvp(request):
@@ -78,6 +80,7 @@ def submit_rsvp(request):
         if response.can_attend:
             guest.vegetarian = response.vegetarian
             guest.dietary_reqs = response.dietary_reqs
+            guest.email = response.email
         guest.save()
 
         if guest.has_plus1:
@@ -95,6 +98,22 @@ def submit_rsvp(request):
                         full_name=plus_one_name
                     )
                     guest.added_plus1 = True
+        context = {'diet': response.dietary_reqs, 'note': response.note, 'veg': response.note, 'attend': response.can_attend}
+        send_mail(
+            subject='Thanks for Responding',
+            message='Thankyou for Responding',
+            from_email='info@elliotandemmawedding.com',
+            recipient_list=[response.email],
+            html_message=render_to_string('templates/rsvp/emails/response.html', context=context)
+
+        )
+        send_mail(
+            subject=f"{Guest.full_name} responded",
+            message=f"{Guest.full_name}, attending: {Guest.attending}, veg: {Guest.vegetarian}, email: {Guest.email}",
+            from_email='info@elliotandemmawedding.com',
+            recipient_list=['elliotandemmawedding@gmail.com'],
+            html_message=render_to_string('templates/rsvp/emails/response_info.html')
+        )
 
     return JsonResponse({'id': guest.id})
 

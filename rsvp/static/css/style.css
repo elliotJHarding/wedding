@@ -200,6 +200,25 @@ body.rsvp {
     padding-top: 12px;
     z-index: 2;
 }
+#evening-food-timeline::before {
+    content: url("/static/img/lunch_dining_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 12px;
+    padding-top: 11px;
+    z-index: 2;
+}
+
+#goodnight-timeline::before {
+    content: url("/static/img/local_taxi_white_36dp.svg");
+    position: absolute;
+    /*left:-100px;*/
+    top: var(--schedule-align-top);
+    padding-left: 12px;
+    padding-top: 11px;
+    z-index: 2;
+}
 
 .light-title {
     margin-bottom: 0;

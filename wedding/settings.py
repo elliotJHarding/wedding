@@ -161,6 +161,13 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'info@elliotandemmawedding.com'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

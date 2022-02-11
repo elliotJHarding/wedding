@@ -8,6 +8,7 @@ class Guest(models.Model):
     full_name = models.CharField(max_length=100, default="")
     has_plus1 = models.BooleanField(default=False)
     added_plus1 = models.BooleanField(default=False)
+    email = models.CharField(max_length=100, default="")
     responded = models.BooleanField(default=False)
     attending = models.BooleanField(default=None, null=True)
     vegetarian = models.BooleanField(default=None, null=True)
